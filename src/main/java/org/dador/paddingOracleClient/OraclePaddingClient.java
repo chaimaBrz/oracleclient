@@ -55,7 +55,7 @@ public class OraclePaddingClient {
             if (i==position) {
                 result[i] = (byte)(iv[i]^decoded[i]^guess^padding[i]);
             }else{
-                result[i] = (byte) (iv[i]^decoded[i]^guess^padding[i]);
+                result[i] = (byte) (iv[i]^decoded[i]^padding[i]);
 
             }
         }
