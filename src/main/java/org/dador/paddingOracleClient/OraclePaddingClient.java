@@ -48,11 +48,14 @@ public class OraclePaddingClient {
      */
     protected byte[] buildGuessForPosition(byte[] iv, byte[] decoded, int position, byte guess) {
         byte[] result = new byte[BLOCK_SIZE];
+        int paddingVal= BLOCK_SIZE-position;
+        byte[] padding = buildPaddingArray(paddingVal);
+
         for (int i = 0; i < BLOCK_SIZE; i++) {
             if (i==position) {
-                result[i] = (byte)(iv[i]^guess^1);
+                result[i] = (byte)(iv[i]^decoded[i]^guess^padding[i]);
             }else{
-                result[i] = iv[i];
+                result[i] = (byte) (iv[i]^decoded[i]^guess^padding[i]);
 
             }
         }
@@ -72,9 +75,7 @@ public class OraclePaddingClient {
      * @throws URISyntaxException
      */
     public int getPaddingLengthForLastBlock(PaddingOracleQuery poq, byte[] previousbloc, byte[] lastbloc) throws IOException, URISyntaxException {
-        /**
-         * TODO : Your Code HERE
-         */
+
         // should not arrive here !
         return 0;
     }
